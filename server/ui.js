@@ -2,7 +2,7 @@ class UI {
     constructor(io) {
         this.io = io;
 
-        this.state = { message: 'Hello, World!'};
+        this.state = { message: 'Hello, World!', content: {} };
 
         this.io.on('connection', client => this._onClientConnect(client));
     }
