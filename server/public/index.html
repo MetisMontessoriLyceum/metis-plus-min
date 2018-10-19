@@ -1,21 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Metis+-</title>
+    <style>
+        td {
+            font-family: sans-serif;
+            font-size: 200%;
+        }
+
+        body {
+            margin: 0;
+            background-color: gray;
+        }
+
+        table {
+            width: 100vh;
+            height: 100vh;
+            margin: auto;
+            background-color: white;
+            padding: 8px;
+        }
+    </style>
 </head>
+
 <body>
-    <div id="root"></div>
+    <div id="root" style="display: none"></div>
+    <table id="note">
+        <tr>
+            <td>Date</th>
+            <td id="date"></td>
+        </tr>
+        <tr>
+            <td>Lesson number</td>
+            <td id="lessonNr"></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding-top: 20px">
+                This student is late and has reported himself at the reception. Would you still accept this student in
+                your
+                lesson?
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>Student id</td>
+            <td id="studId"></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td id="name"></td>
+        </tr>
+        <tr>
+            <td>Class</td>
+            <td id="class"></td>
+        </tr>
+        <tr>
+            <td>Reason</td>
+            <td id="reason"></td>
+        </tr>
+        <tr>
+            <td>Time</td>
+            <td id="time"></td>
+        </tr>
+        <tr>
+            <td>Lawfully late</td>
+            <td id="lawfully"></td>
+        </tr>
+        <tr>
+            <td>Total lawfully late</td>
+            <td id="totLawfully"></td>
+        </tr>
+        <tr>
+            <td>Total late</td>
+            <td id="totLate"></td>
+        </tr>
+
+    </table>
 
     <script src="/vendor/socket.io.js"></script>
     <script>
         const socket = io();
         socket.on('update', function (state) {
             console.log('received state:', state);
-            document.querySelector('#root').textContent = state.message;
+            document.querySelector('#root').textContent = JSON.stringify(state.content);
+            for (data in state.content) {
+                console.log(data);
+                document.getElementById(data).innerHTML = state.content[data];
+            }
         });
     </script>
 </body>
+
 </html>

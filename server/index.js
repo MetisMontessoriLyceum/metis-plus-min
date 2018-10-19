@@ -14,8 +14,8 @@ app.get('/api/schedule/bokke', function (req, res) {
     });
 });
 
-app.get('/api/print', function(req, res) {
-    ui.state.message = 'Printing!';
+app.get('/api/print', function (req, res) {
+    ui.state.content = req.query;
     ui.update();
     res.end('success');
 });
